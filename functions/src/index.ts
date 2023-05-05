@@ -10,7 +10,9 @@ app.use(express.urlencoded({extended: false}));
 
 app.post("/ussd", (request, resp)=> {
   const {
-    phoneNumber= "222 288 984",
+    phoneNumber,
+    sessionId,
+    serviceCode,
     text
   } = request.body;
 
@@ -18,13 +20,16 @@ app.post("/ussd", (request, resp)=> {
 
   switch (text) {
   case "":
-    response = "CON What would you like to check? <br/> 1. My Account <br/> 2. My Phone Number";
+    response = "CON What would you like to check? <br/> 1. My Account <br/> 2. Service code <br/> 3. Session id";
     break;
   case "1":
-    response ="CON Choose account information you want to view <br/> 1. Account Number <br/> 2. Account balance";
+    response ="CON Choose account information you want to view <br/> 1. Account Number <br/> 2. Account balancet";
     break;
   case "2":
-    response = "END your phone number is "+phoneNumber;
+    response = "END Service code is "+serviceCode;
+    break;
+  case "3":
+    response = "END Session id is "+sessionId;
     break;
   case "1*1":
     response = "END your phone number is "+phoneNumber;
