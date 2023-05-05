@@ -1,29 +1,27 @@
 import functions = require("firebase-functions");
 import express = require("express");
-import bodyParser = require("body-parser");
-// import config = require("../../config");
+//import bodyParser = require("body-parser");
+//import config = require("../../config");
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 app.post("/ussd", (request, resp)=> {
   const {
     phoneNumber= "222 288 984",
-    text,
+    text
   } = request.body;
 
   let response = "";
 
   switch (text) {
   case "":
-    response = "CON What would you like to check? <br/>"+
-    " 1. My Account <br/> 2. My Phone Number";
+    response = "CON What would you like to check? <br/> 1. My Account <br/> 2. My Phone Number";
     break;
   case "1":
-    response ="CON Choose account information you want to view <br/>"+
-    " 1. Account Number <br/> 2. Account balance";
+    response ="CON Choose account information you want to view <br/> 1. Account Number <br/> 2. Account balance";
     break;
   case "2":
     response = "END your phone number is "+phoneNumber;
@@ -45,5 +43,5 @@ app.post("/ussd", (request, resp)=> {
 exports.ussd = functions.https.onRequest(app);
 
 
-// Initialize Firebase
-// const app = initializeApp.initializeApp(config.firebaseConfig);
+//Initialize Firebase
+//const app = initializeApp.initializeApp(config.firebaseConfig);
